@@ -77,11 +77,11 @@ cp $out/kernel ./images/kernel
 # Detectar formato y renombrar
 fmt=$(file -b ./images/kernel)
 if echo "$fmt" | grep -q "LZ4"; then
-    mv ./images/kernel ./images/kernel.lz4
+    mv ./images/kernel ./images/Image.lz4
 elif echo "$fmt" | grep -q "gzip"; then
-    mv ./images/kernel ./images/kernel.gz
+    mv ./images/kernel ./images/Image.gz
 elif echo "$fmt" | grep -q "XZ"; then
-    mv ./images/kernel ./images/kernel.xz
+    mv ./images/kernel ./images/Image.xz
 fi
 
 echo "Done"
