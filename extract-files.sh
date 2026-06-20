@@ -73,8 +73,18 @@ unpackbootimg --boot_img $(get_path boot.img) --out $out --format mkbootimg
 
 echo "Done. Copying the kernel"
 cp $out/kernel ./images/kernel
-echo "Done"
 
+# Detectar formato y renombrar
+fmt=$(file -b ./images/kernel)
+if echo "$fmt" | grep -q "LZ4"; then
+    mv ./images/kernel ./images/kernel.lz4
+elif echo "$fmt" | grep -q "gzip"; then
+    mv ./images/kernel ./images/kernel.gz
+elif echo "$fmt" | grep -q "XZ"; then
+    mv ./images/kernel ./images/kernel.xz
+fi
+
+echo "Done"
 
 # VENDOR_BOOT
 echo "Extracting the ramdisk kernel modules and DTB"
